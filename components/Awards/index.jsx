@@ -7,16 +7,18 @@ const columns = [
   {
     text: 'Filer Name',
     dataField: 'filer_name',
+    sort: true
   },
   {
     text: 'Amount',
     dataField: 'amount',
     formatter: (cell, row) => currencyFormatter.format(cell),
-    sort: true,
+    sort: true
   },
   {
     text: 'Purpose',
-    dataField: 'purpose'
+    dataField: 'purpose',
+    sort: true
   }
 ];
 

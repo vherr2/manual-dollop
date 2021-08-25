@@ -7,17 +7,19 @@ const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', cu
 const columns = [
   {
     text: 'Recipient',
-    dataField: 'recipient_name'
+    dataField: 'recipient_name',
+    sort: true
   },
   {
     text: 'Purpose',
-    dataField: 'purpose'
+    dataField: 'purpose',
+    sort: true
   },
   {
     text: 'Amount',
     dataField: 'amount',
     formatter: (cell, row) => currencyFormatter.format(cell),
-    sort: true,
+    sort: true
   }
 ];
 
@@ -39,7 +41,7 @@ const Filing = (props) => {
       <div className="row">
         {filerName}
         <Table
-          keyField="id"
+          keyField="receiver_id"
           data={props.filing_data.awards}
           columns={columns}
           rowEvents={{ onClick: onClick }}

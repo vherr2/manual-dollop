@@ -10,15 +10,18 @@ const searchUrl = (search) => search ? new URL(`?search=${search}`, baseUrl) : b
 const columns = [
   {
     text: 'Name Line 1',
-    dataField: 'name_line_1'
+    dataField: 'name_line_1',
+    sort: true
   },
   {
     text: 'Name Line 2',
-    dataField: 'name_line_2'
+    dataField: 'name_line_2',
+    sort: true
   },
   {
     text: 'State',
-    dataField: 'state'
+    dataField: 'state',
+    sort: true
   },
   {
     text: 'Awards Granted',
