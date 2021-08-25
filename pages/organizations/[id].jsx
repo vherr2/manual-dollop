@@ -26,7 +26,6 @@ export async function getServerSideProps(context) {
   const filing_data = await filing;
   const award_data = await award;
 
-
   if (!org_data) {
     return {
       notFound: true

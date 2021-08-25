@@ -11,14 +11,19 @@ const col = [
   }
 ];
 
-export const Awards = (props) => {
-  const awards = props.data;
+const currencyFormatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'});
 
-  const body = awards.map(({ amount, purpose }, idx) => {
+export const Awards = (props) => {
+  const awards =
+    props.data
+    .map((award) => new Map(Object.entries(award)))
+    .map((award) => award.set('amount', currencyFormatter.format(award.get('amount'))));
+
+  const body = awards.map((award, idx) => {
     return (
       <tr key={idx}>
-        <td> {amount} </td>
-        <td> {purpose} </td>
+        <td> {award.get('amount')} </td>
+        <td> {award.get('purpose')} </td>
       </tr>
     );
   });
