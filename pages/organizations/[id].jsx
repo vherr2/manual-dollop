@@ -2,7 +2,6 @@ import { Filings } from 'components/Filings'
 import { Awards } from 'components/Awards'
 import { OrganizationDetails } from 'components/OrganizationDetails'
 
-
 const Organization = (props) => {
   return (
     <>

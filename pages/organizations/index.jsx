@@ -25,7 +25,6 @@ const OrganizationTable = ({ data }) => {
     });
   }
 
-  const head = col.map(({ name }) => <th key={name}>{ name }</th>);
   const body = data.map(({ id, name_line_1, name_line_2, state }) => {
     return (
       <tr key={id} onClick={() => handleClick(id)}>
@@ -36,7 +35,7 @@ const OrganizationTable = ({ data }) => {
     )
   })
 
-  return <Table head={head} body={body} />;
+  return <Table col={col} body={body} />;
 
   // TODO: figure out closures for passing around {...attrs} ?
   // return <Table
