@@ -14,12 +14,3 @@ a {
 * {
   box-sizing: border-box;
 }
-
-table {
-  border-collapse: collapse;
-}
-
-table, th, td {
-  text-align: center;
-  border: 1px solid black
-}
