@@ -4,8 +4,8 @@ import { useCallback, useState } from 'react';
 
 import debounce from 'lodash.debounce';
 
-const baseUrl = 'https://localhost:4001/api/organizations'
-const searchUrl = (search) => new URL(`?search=${search}`, baseUrl)
+const baseUrl = 'https://localhost:4001/api/organizations';
+const searchUrl = (search) => search ? new URL(`?search=${search}`, baseUrl) : baseUrl;
 
 const columns = [
   {
@@ -49,17 +49,22 @@ const OrganizationTable = ({ data }) => {
         .then((res) => res.json())
         .then((res) => setResults(res))
     } else {
-      setResults([])
+      fetch(searchUrl())
+        .then((res) => res.json())
+        .then((res) => setResults(res))
     }
   }), 200)
 
   return (
     <div className="container">
-      <input
-        type="text"
-        placeholder="Search Organizations"
-        onChange={onChange}
-      />
+      <div class="input-group rounded">
+        <input
+          class="form-control rounded"
+          type="search"
+          placeholder="Search Organizations"
+          onChange={onChange}
+        />
+      </div>
       <Table
         keyField="id"
         data={results}
