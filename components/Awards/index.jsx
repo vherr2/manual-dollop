@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router'
 import { Table } from 'components/Table'
 
+const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+
 const columns = [
   {
     text: 'Filer Name',
@@ -8,7 +10,9 @@ const columns = [
   },
   {
     text: 'Amount',
-    dataField: 'formatted_amount'
+    dataField: 'amount',
+    formatter: (cell, row) => currencyFormatter.format(cell),
+    sort: true,
   },
   {
     text: 'Purpose',
@@ -16,11 +20,8 @@ const columns = [
   }
 ];
 
-const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
 export const Awards = (props) => {
-  props.data.forEach((award) => Object.assign(award, { formatted_amount: currencyFormatter.format(award.amount) }))
-
   const router = useRouter();
 
   const onClick = (e, row, rowIndex) => {

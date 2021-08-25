@@ -5,16 +5,16 @@ import { OrganizationDetails } from 'components/OrganizationDetails'
 const Organization = (props) => {
   return (
     <div className="container">
-      <div class="row">
+      <div className="row">
         <h2>Organization</h2>
         <OrganizationDetails data={props.org_data} />
       </div>
-      <div class="row">
-        <div class="col-sm">
+      <div className="row">
+        <div className="col-sm">
           <h2>Filings</h2>
           <Filings data={props.filing_data} />
         </div>
-        <div class="col-sm">
+        <div className="col-sm">
           <h2>Awards</h2>
           <Awards data={props.award_data} />
         </div>

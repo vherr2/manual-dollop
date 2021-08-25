@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { Table } from 'components/Table'
 
 const columns = [
@@ -16,11 +17,19 @@ const columns = [
 ];
 
 export const Filings = (props) => {
-  props.data.forEach((filing) => Object.assign(filing, { count_of_awards: filing.awards.length }))
+  const router = useRouter();
+
+  const onClick = (e, row, rowIndex) => {
+    router.push({
+      pathname: '/filings/[id]',
+      query: { id: row.id }
+    })
+  };
 
   return <Table
     keyField="id"
     data={props.data}
     columns={columns}
+    rowEvents={{onClick: onClick}}
   />;
 };
