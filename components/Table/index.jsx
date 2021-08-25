@@ -13,9 +13,11 @@ export const Table = (props) => {
 
   // TODO: figure out empty states
   return (
-    <table>
-      <thead><tr>{head}</tr></thead>
-      <tbody>{props.body}</tbody>
-    </table>
+    props.body.length
+      ? (<table>
+          <thead><tr>{head}</tr></thead>
+          <tbody>{props.body}</tbody>
+        </table>)
+      : <p>No Data</p>
   )
 };
