@@ -1,47 +1,41 @@
 import { useRouter } from 'next/router'
 import { Table } from 'components/Table'
 
-const col = [
+const columns = [
   {
-    name: 'Filer Name',
-    field: 'filer_name',
+    text: 'Filer Name',
+    dataField: 'filer_name',
   },
   {
-    name: 'Amount',
-    field: 'amount'
+    text: 'Amount',
+    dataField: 'formatted_amount'
   },
   {
-    name: 'Purpose',
-    field: 'purpose'
+    text: 'Purpose',
+    dataField: 'purpose'
   }
 ];
 
 const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
 export const Awards = (props) => {
-  const awards =
-    props.data
-      .map((award) => new Map(Object.entries(award)))
-      .map((award) => award.set('amount', currencyFormatter.format(award.get('amount'))));
+  props.data.forEach((award) => Object.assign(award, { formatted_amount: currencyFormatter.format(award.amount) }))
 
   const router = useRouter();
 
-  const handleClick = (id) => {
+  const onSelect = (row, isSelect, rowIndex, e) => {
     router.push({
       pathname: '/organizations/[id]',
-      query: { id: id }
-    });
+      query: { id: row.id }
+    })
   }
 
-  const body = awards.map((award, idx) => {
-    return (
-      <tr key={idx} onClick={() => handleClick(award.get('filer_id'))}>
-        <td> {award.get('filer_name')} </td>
-        <td> {award.get('amount')} </td>
-        <td> {award.get('purpose')} </td>
-      </tr>
-    );
-  });
-
-  return <Table col={col} body={body} />;
+  return (
+    <Table
+      keyField="id"
+      data={props.data}
+      columns={columns}
+      onSelect={onSelect}
+    />
+  );
 };

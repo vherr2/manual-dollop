@@ -7,43 +7,33 @@ import debounce from 'lodash.debounce';
 const baseUrl = 'https://localhost:4001/api/organizations'
 const searchUrl = (search) => new URL(`?search=${search}`, baseUrl)
 
-const col = [
+const columns = [
   {
-    name: 'Name Line 1',
-    field: 'name_line_1'
+    text: 'Name Line 1',
+    dataField: 'name_line_1'
   },
   {
-    name: 'Name Line 2',
-    field: 'name_line_2'
+    text: 'Name Line 2',
+    dataField: 'name_line_2'
   },
   {
-    name: 'State',
-    field: 'state'
+    text: 'State',
+    dataField: 'state'
   }
 ];
 
 const OrganizationTable = ({ data }) => {
   const router = useRouter();
 
-  const handleClick = (id) => {
-    router.push({
-      pathname: '/organizations/[id]',
-      query: { id: id }
-    });
-  }
-
   const [query, setQuery] = useState('');
   const [results, setResults] = useState(data);
 
-  const body = results.map(({ id, name_line_1, name_line_2, state }) => {
-    return (
-      <tr key={id} onClick={() => handleClick(id)}>
-        <td> {name_line_1} </td>
-        <td> {name_line_2} </td>
-        <td> {state} </td>
-      </tr>
-    )
-  })
+  const onSelect = (row, isSelect, rowIndex, e) => {
+    router.push({
+      pathname: '/organizations/[id]',
+      query: { id: row.id }
+    })
+  }
 
   const onChange = debounce(useCallback((event) => {
     const query = event.target.value;
@@ -64,7 +54,12 @@ const OrganizationTable = ({ data }) => {
       placeholder="Search Organizations"
       onChange={onChange}
     />
-    <Table col={col} body={body} />
+    <Table
+      keyField="id"
+      data={results}
+      columns={columns}
+      onSelect={onSelect}
+    />
   </>);
 }
 

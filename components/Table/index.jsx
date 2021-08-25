@@ -1,23 +1,18 @@
-// function rowMapper(fields, rowData) {
-//   return (
-//     <tr key={rowData['id']}>
-//       { fields.map((field) => <td key={field}>{rowData[field]}</td>) }
-//     </tr>
-//   );
-// }
+import "bootstrap/dist/css/bootstrap.css";
+// import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 export const Table = (props) => {
-  const head = props.col.map(({ name }) => <th key={name}>{name}</th>);
-  // const fields = props.col.map(({ field }) => field);
-  // const rows = props.data.map((row) => rowMapper(fields, row));
-
   // TODO: figure out empty states
   return (
-    props.body.length
-      ? (<table>
-          <thead><tr>{head}</tr></thead>
-          <tbody>{props.body}</tbody>
-        </table>)
-      : <p>No Data</p>
+    // props.body.length
+    // ? <BootstrapTable
+    <BootstrapTable
+      {...props}
+      selectRow={{ mode: 'radio', clickToSelect: true, hideSelectColumn: true, onSelect: props.onSelect }}
+      pagination={paginationFactory({ sizePerPage: 20 })}
+    />
+    // : <p>No Data</p>
   )
 };
