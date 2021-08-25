@@ -19,6 +19,11 @@ const columns = [
   {
     text: 'State',
     dataField: 'state'
+  },
+  {
+    text: 'Awards Granted',
+    dataField: 'awards_granted',
+    sort: true
   }
 ];
 
