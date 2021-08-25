@@ -4,14 +4,22 @@ import { OrganizationDetails } from 'components/OrganizationDetails'
 
 const Organization = (props) => {
   return (
-    <>
-      <h2>Organization</h2>
-      <OrganizationDetails data={props.org_data} />
-      <h2>Filings</h2>
-      <Filings data={props.filing_data} />
-      <h2>Awards</h2>
-      <Awards data={props.award_data} />
-    </>
+    <div className="container">
+      <div class="row">
+        <h2>Organization</h2>
+        <OrganizationDetails data={props.org_data} />
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <h2>Filings</h2>
+          <Filings data={props.filing_data} />
+        </div>
+        <div class="col-sm">
+          <h2>Awards</h2>
+          <Awards data={props.award_data} />
+        </div>
+      </div>
+    </div>
   );
 };
 
