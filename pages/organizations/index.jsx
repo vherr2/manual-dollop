@@ -1,5 +1,11 @@
 import { useRouter } from 'next/router'
 import { Table } from 'components/Table'
+import { useCallback, useState } from 'react';
+
+import debounce from 'lodash.debounce';
+
+const baseUrl = 'https://localhost:4001/api/organizations'
+const searchUrl = (search) => new URL(`?search=${search}`, baseUrl)
 
 const col = [
   {
@@ -18,6 +24,7 @@ const col = [
 
 const OrganizationTable = ({ data }) => {
   const router = useRouter();
+
   const handleClick = (id) => {
     router.push({
       pathname: '/organizations/[id]',
@@ -25,7 +32,10 @@ const OrganizationTable = ({ data }) => {
     });
   }
 
-  const body = data.map(({ id, name_line_1, name_line_2, state }) => {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState(data);
+
+  const body = results.map(({ id, name_line_1, name_line_2, state }) => {
     return (
       <tr key={id} onClick={() => handleClick(id)}>
         <td> {name_line_1} </td>
@@ -35,18 +45,31 @@ const OrganizationTable = ({ data }) => {
     )
   })
 
-  return <Table col={col} body={body} />;
+  const onChange = debounce(useCallback((event) => {
+    const query = event.target.value;
+    setQuery(query)
 
-  // TODO: figure out closures for passing around {...attrs} ?
-  // return <Table
-  //   col={col}
-  //   data={data}
-  // />
+    if (query.length) {
+      fetch(searchUrl(query))
+        .then((res) => res.json())
+        .then((res) => setResults(res))
+    } else {
+      setResults([])
+    }
+  }), 200)
+
+  return (<>
+    <input
+      type="text"
+      placeholder="Search Organizations"
+      onChange={onChange}
+    />
+    <Table col={col} body={body} />
+  </>);
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch('https://localhost:4001/api/organizations');
-  const data = await res.json()
+  const data = await fetch(baseUrl).then((res) => res.json());
 
   if (!data) {
     return {
