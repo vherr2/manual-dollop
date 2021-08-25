@@ -11,6 +11,7 @@ export const Table = (props) => {
   // const fields = props.col.map(({ field }) => field);
   // const rows = props.data.map((row) => rowMapper(fields, row));
 
+  // TODO: figure out empty states
   return (
     <table>
       <thead><tr>{head}</tr></thead>
