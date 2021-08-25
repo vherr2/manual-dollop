@@ -10,7 +10,6 @@ export const Table = (props) => {
     // ? <BootstrapTable
     <BootstrapTable
       {...props}
-      selectRow={{ mode: 'radio', clickToSelect: true, hideSelectColumn: true, onSelect: props.onSelect }}
       pagination={paginationFactory({ sizePerPage: 20 })}
     />
     // : <p>No Data</p>

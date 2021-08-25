@@ -28,7 +28,7 @@ const OrganizationTable = ({ data }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState(data);
 
-  const onSelect = (row, isSelect, rowIndex, e) => {
+  const onClick = (e, row, rowIndex) => {
     router.push({
       pathname: '/organizations/[id]',
       query: { id: row.id }
@@ -48,19 +48,21 @@ const OrganizationTable = ({ data }) => {
     }
   }), 200)
 
-  return (<>
-    <input
-      type="text"
-      placeholder="Search Organizations"
-      onChange={onChange}
-    />
-    <Table
-      keyField="id"
-      data={results}
-      columns={columns}
-      onSelect={onSelect}
-    />
-  </>);
+  return (
+    <div className="container">
+      <input
+        type="text"
+        placeholder="Search Organizations"
+        onChange={onChange}
+      />
+      <Table
+        keyField="id"
+        data={results}
+        columns={columns}
+        rowEvents={{ onClick: onClick }}
+      />
+    </div>
+  );
 }
 
 export async function getServerSideProps(context) {

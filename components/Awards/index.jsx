@@ -23,10 +23,10 @@ export const Awards = (props) => {
 
   const router = useRouter();
 
-  const onSelect = (row, isSelect, rowIndex, e) => {
+  const onClick = (e, row, rowIndex) => {
     router.push({
       pathname: '/organizations/[id]',
-      query: { id: row.id }
+      query: { id: row.filer_id }
     })
   }
 
@@ -35,7 +35,7 @@ export const Awards = (props) => {
       keyField="id"
       data={props.data}
       columns={columns}
-      onSelect={onSelect}
+      rowEvents={{onClick: onClick}}
     />
   );
 };
