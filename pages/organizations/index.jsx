@@ -57,9 +57,9 @@ const OrganizationTable = ({ data }) => {
 
   return (
     <div className="container">
-      <div class="input-group rounded">
+      <div className="input-group rounded">
         <input
-          class="form-control rounded"
+          className="form-control rounded"
           type="search"
           placeholder="Search Organizations"
           onChange={onChange}
